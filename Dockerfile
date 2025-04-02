@@ -23,6 +23,13 @@ RUN ./gradlew build --no-daemon
 # 이후 명령어가 편하도록 불필요한 파일 삭제
 RUN rm -rf /app/build/libs/*-plain.jar
 
+## 빌드된 JAR 파일 복사<- 싱글 스테이지 빌드의 경우 해당 부분 실행
+#RUN mv /app/build/libs/*.jar app.jar
+#
+## 실행할 JAR 파일 지정
+#ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
+
+
 # 두 번째 스테이지: 실행 스테이지(운영)
 FROM container-registry.oracle.com/graalvm/jdk:23
 
@@ -35,8 +42,3 @@ COPY --from=builder /app/build/libs/*.jar app.jar
 # 실행할 JAR 파일 지정
 ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
 
-## 빌드된 JAR 파일 복사<- 싱글 스테이지 빌드의 경우
-#RUN mv /app/build/libs/*.jar app.jar
-#
-## 실행할 JAR 파일 지정
-#ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
