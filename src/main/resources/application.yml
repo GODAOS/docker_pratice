@@ -2,5 +2,5 @@ spring:
   application:
     name: back
 
-  server:
+server:
     port: 8090
