@@ -32,4 +32,4 @@ RUN rm -rf /app/src
 RUN rm -rf /app/*.kts
 
 # 실행할 JAR 파일 지정
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
